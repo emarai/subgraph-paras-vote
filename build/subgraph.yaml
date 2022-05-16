@@ -1,0 +1,22 @@
+specVersion: 0.0.4
+description: Paras vote
+repository: https://github.com/emarai/subgraph-paras-vote
+schema:
+  file: schema.graphql
+dataSources:
+  - kind: near
+    name: receipts
+    network: near-testnet
+    source:
+      account: paras-dao-v1.testnet
+      startBlock: 90031913
+    mapping:
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      file: receipts/receipts.wasm
+      entities:
+        - Proposal
+        - Log
+        - Vote
+      receiptHandlers:
+        - handler: handleReceipt

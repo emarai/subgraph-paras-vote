@@ -1,0 +1,37 @@
+type Proposal @entity {
+  id: ID!
+  proposer: String!
+  title: String
+  description: String
+  kind: String!
+  status: String!
+  submission_time: BigInt!
+  proposal_start_time: BigInt!
+  proposal_period: BigInt!
+  log: [Log!]!
+}
+
+type Log @entity {
+  id: ID!
+  standard: String!
+  version: String!
+  event: String!
+  proposal_id: ID
+  vote_option: String
+  user_weight: String
+  proposer: String
+  title: String
+  description: String
+  kind: String
+  status: String
+  submission_time: String
+  proposal_start_time: String
+  proposal_period: String
+}
+
+type Vote @entity {
+  id: ID!
+  vote_option: String!
+  user_weight: BigInt!
+  log: [Log!]!
+}
