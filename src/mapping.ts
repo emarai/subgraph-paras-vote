@@ -77,7 +77,10 @@ function handleAction(
           switch (true) {
             case key == "id":
               logs.proposal_id = data.entries[i].value.toString();
-              votes.id = data.entries[i].value.toString();
+              votes.id = `${data.entries[i].value.toString()}-${
+                receipt.predecessorId
+              }`;
+              votes.proposal_id = data.entries[i].value.toString();
               break;
             case key == "vote_option":
               logs.vote_option = data.entries[i].value.toString();
@@ -95,7 +98,8 @@ function handleAction(
       logs.save();
     }
 
-    votes.log.push(logs.id);
+    votes.account_id = receipt.predecessorId;
+    votes.receiptId = receiptId;
     votes.save();
   } else {
     log.info("Not processed - FunctionCall is: {}", [functionCall.methodName]);
@@ -184,7 +188,7 @@ function handleAction(
       logs.save();
     }
 
-    proposal.log.push(logs.id);
+    proposal.receiptId = receiptId;
     proposal.save();
   } else {
     log.info("Not processed - FunctionCall is: {}", [functionCall.methodName]);

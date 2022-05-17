@@ -22,7 +22,7 @@ export class Proposal extends Entity {
     this.set("submission_time", Value.fromBigInt(BigInt.zero()));
     this.set("proposal_start_time", Value.fromBigInt(BigInt.zero()));
     this.set("proposal_period", Value.fromBigInt(BigInt.zero()));
-    this.set("log", Value.fromStringArray(new Array(0)));
+    this.set("receiptId", Value.fromString(""));
   }
 
   save(): void {
@@ -139,13 +139,13 @@ export class Proposal extends Entity {
     this.set("proposal_period", Value.fromBigInt(value));
   }
 
-  get log(): Array<string> {
-    let value = this.get("log");
-    return value!.toStringArray();
+  get receiptId(): string {
+    let value = this.get("receiptId");
+    return value!.toString();
   }
 
-  set log(value: Array<string>) {
-    this.set("log", Value.fromStringArray(value));
+  set receiptId(value: string) {
+    this.set("receiptId", Value.fromString(value));
   }
 }
 
@@ -405,9 +405,10 @@ export class Vote extends Entity {
     super();
     this.set("id", Value.fromString(id));
 
+    this.set("account_id", Value.fromString(""));
     this.set("vote_option", Value.fromString(""));
     this.set("user_weight", Value.fromBigInt(BigInt.zero()));
-    this.set("log", Value.fromStringArray(new Array(0)));
+    this.set("receiptId", Value.fromString(""));
   }
 
   save(): void {
@@ -436,6 +437,32 @@ export class Vote extends Entity {
     this.set("id", Value.fromString(value));
   }
 
+  get proposal_id(): string | null {
+    let value = this.get("proposal_id");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set proposal_id(value: string | null) {
+    if (!value) {
+      this.unset("proposal_id");
+    } else {
+      this.set("proposal_id", Value.fromString(<string>value));
+    }
+  }
+
+  get account_id(): string {
+    let value = this.get("account_id");
+    return value!.toString();
+  }
+
+  set account_id(value: string) {
+    this.set("account_id", Value.fromString(value));
+  }
+
   get vote_option(): string {
     let value = this.get("vote_option");
     return value!.toString();
@@ -454,12 +481,12 @@ export class Vote extends Entity {
     this.set("user_weight", Value.fromBigInt(value));
   }
 
-  get log(): Array<string> {
-    let value = this.get("log");
-    return value!.toStringArray();
+  get receiptId(): string {
+    let value = this.get("receiptId");
+    return value!.toString();
   }
 
-  set log(value: Array<string>) {
-    this.set("log", Value.fromStringArray(value));
+  set receiptId(value: string) {
+    this.set("receiptId", Value.fromString(value));
   }
 }
