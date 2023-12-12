@@ -32,8 +32,8 @@ type Log @entity {
 type Vote @entity {
   id: ID!
   proposal_id: ID
-  account_id: String!
-  vote_option: String!
-  user_weight: BigInt!
-  receiptId: String!
+  account_id: String
+  vote_option: String
+  user_weight: BigInt
+  receiptId: String
 }
